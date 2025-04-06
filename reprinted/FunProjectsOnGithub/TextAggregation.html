@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字聚集效果（建议全屏）</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        canvas{
+            background: #fff;
+            display: block;
+            height: 100vh;
+            width: 100vw;
+        }
+        .text-input {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+            color: #0ff;
+            font-family: Arial, sans-serif;
+            width: 250px;
+            transition: all 0.3s ease;
+            transform: translateX(200px);
+            opacity: 0.3;
+        }
+        .text-input:hover {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .text-input textarea {
+            width: 230px;
+            height: 80px;
+            margin-top: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: 1px solid #0ff;
+            padding: 5px;
+            font-size: 12px;
+        }
+        .text-input button {
+            background: #0ff;
+            color: black;
+            border: none;
+            padding: 5px 10px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+        .text-input-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #0ff;
+            border: 1px solid #0ff;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            z-index: 101;
+        }
+    </style>
+</head>
+<body>
+    <button class="text-input-toggle" id="toggle-input">编辑文字</button>
+    <div class="text-input" id="text-input-panel">
+        <label for="custom-text">输入自定义文字:</label>
+        <textarea id="custom-text">从此之后，四婶也就不再提起祥林嫂。
+但有一年的秋季，大约是得到祥林嫂好运的消息之后的又过了两个新年，她竟又站在四叔家的堂前了。桌上放着一个荸荠式的圆篮，檐下一个小铺盖。她仍然头上扎着白头绳，乌裙，蓝夹祆，月白背心，脸色青黄，只是两颊上已经消失了血色，顺着眼，眼角上带些泪痕，眼光也没有先前那样精神了。</textarea>
+        <button id="apply-text">应用文字</button>
+    </div>
+    <canvas></canvas>
+</body>
+<script>
+let CONTENT = document.getElementById('custom-text').value;
+const FONT_SIZE = 30;
+
+// 应用按钮点击事件
+document.getElementById('apply-text').addEventListener('click', function() {
+    CONTENT = document.getElementById('custom-text').value;
+    // 重新初始化画布
+    const canvasElement = document.querySelector('canvas');
+    if (window.canvas) {
+        canvasElement.width = window.innerWidth * (window.devicePixelRatio || 1);
+        canvasElement.height = window.innerHeight * (window.devicePixelRatio || 1);
+        window.canvas.reinitialize(CONTENT);
+    } else {
+        window.canvas = new Canvas(canvasElement);
+    }
+});
+
+class Char{
+    constructor(originX, originY, char){
+        this.originX = originX;
+        this.originY = originY;
+        this.x = this.#random(0, 1000);
+        this.y = this.#random(500, 560);
+        this.m = this.#random(1, 7);
+        this.char = char;
+        this.size = FONT_SIZE;
+    }
+    #random(min, max){
+        return Math.random() * (max - min) + min;
+    }
+    moved(vx, vy){
+        this.x += vx*this.m;
+        this.y += vy*this.m; 
+    }
+    moveTo(x, y,curve="linear"){
+        const dx = x - this.x;
+        const dy = y - this.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        let force = 1;
+        switch(curve){
+            case "easeIn":
+                force = distance/100;
+                break;
+            case "RevEaseIn":
+                force = -distance/100;
+                break;
+            case "easeOut":
+                force = 100/distance;
+                if(force > 10) force = 10;
+                break;
+            case "easeInOut":
+                force = distance/100;
+                if(force > 1) force = distance/100;
+                if(force < -1) force = 100/distance;
+                break;
+            case "linear":
+                force = 1;
+                break;
+        }
+        const angle = Math.atan2(dy, dx);
+        const vx = Math.cos(angle) * force;
+        const vy = Math.sin(angle) * force;
+        this.moved(vx, vy);
+    }
+}
+
+class Canvas{
+    constructor(element){
+        if(!element||element.nodeName !== 'CANVAS'){
+            throw new Error(`canvas element is required, but received ${element ? element.nodeName : 'null'}`);
+        }
+        this.canvas = element;
+        this.ctx = this.canvas.getContext('2d');
+        this.ratio = window.devicePixelRatio || 1;
+        this.cWidth = this.canvas.width = window.innerWidth*this.ratio;
+        this.cHeight = this.canvas.height = window.innerHeight*this.ratio;
+        this.#init();
+    }
+    
+    // 添加重新初始化方法
+    reinitialize(newContent) {
+        this.string = newContent;
+        this.#initTextPos();
+    }
+    
+    #init() {
+        this.ctx.font=`${FONT_SIZE}px Arial`;
+        this.string = CONTENT;
+        this.charWidth = FONT_SIZE+1;
+        this.#initTextPos();
+        this.mouseX = -1000;
+        this.mouseY = -1000;
+        this.canvas.addEventListener('mousemove', (e) => {
+            this.mouseX = e.clientX*this.ratio;
+            this.mouseY = e.clientY*this.ratio;
+        });
+        this.canvas.addEventListener('mouseleave', (e) => {
+            this.mouseX = -1000;
+            this.mouseY = -1000; 
+        });
+        this.#loop();
+    }
+    
+    #initTextPos(){
+        const config = {
+            marginLeft: 20,
+            marginTop: 20,
+            lineHeight: 40,
+        }
+        const maxCols = Math.floor((this.cWidth - config.marginLeft * 2) / this.charWidth);
+        let rowsCount = 0;
+        let colsCount = 0;
+        let length = 0;
+        this.charArr = [];
+
+        for(let i = 0; i < this.string.length; i++){
+            let char = this.string[i];
+            //换行
+            if(char === '\n'){
+                rowsCount++;
+                colsCount = 2;
+                continue;
+            }
+            if(colsCount >= maxCols){
+                rowsCount++;
+                colsCount = 0; 
+            }
+            const x = config.marginLeft + colsCount * this.charWidth;
+            const y = config.marginTop + rowsCount * config.lineHeight+FONT_SIZE;
+            this.charArr[length]=new Char(x, y, char);
+            colsCount++;
+            length++;
+        }
+    }
+    
+    draw(){
+        //移动文字
+        for(const char of this.charArr){
+            let dx = this.mouseX - char.x;
+            let dy = this.mouseY - char.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            if(distance < 300){
+                char.moveTo(this.mouseX, this.mouseY,"easeOut");
+            }else{
+                char.moveTo(char.originX, char.originY,"easeIn");
+            }
+        }
+
+        //渲染文字
+        for(const char of this.charArr){
+            this.ctx.font=`${char.size}px Arial`;
+            this.ctx.fillText(char.char, char.x, char.y);
+        }
+
+        //渲染渐变圆
+        const gradient = this.ctx.createRadialGradient(this.mouseX, this.mouseY, 50, this.mouseX, this.mouseY, 250);
+        gradient.addColorStop(0, 'rgba(0, 0, 0, 0.1)');
+        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        this.ctx.fillStyle = gradient;
+        this.ctx.beginPath();
+        this.ctx.arc(this.mouseX, this.mouseY, 300, 0, 2 * Math.PI);
+        this.ctx.fill();
+        this.ctx.fillStyle = 'black'; 
+    }
+    
+    #loop(){
+        this.ctx.clearRect(0, 0, this.cWidth, this.cHeight);
+        this.draw();
+        requestAnimationFrame(this.#loop.bind(this));
+    }
+}
+
+window.canvas = new Canvas(document.querySelector('canvas'));
+
+// 添加切换输入面板的功能
+document.getElementById('toggle-input').addEventListener('click', function() {
+    const panel = document.getElementById('text-input-panel');
+    if (panel.style.transform === 'translateX(0px)') {
+        panel.style.transform = 'translateX(200px)';
+        panel.style.opacity = '0.3';
+    } else {
+        panel.style.transform = 'translateX(0px)';
+        panel.style.opacity = '1';
+    }
+});
+</script>
+</html>

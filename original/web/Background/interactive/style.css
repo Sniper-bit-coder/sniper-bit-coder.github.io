@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@font-face {
+    font-family: "good_times_rg";
+    src: url(fonts/good_times_rg.ttf);
+}
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.background {
+    width: 100%;
+    height: 100%;
+    background: url(background/background.jpg) no-repeat center center;
+    background-size: cover;
+    position: fixed;
+    /* 已移除晃动相关的transition属性 */
+}
+
+.outer {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    /* 已移除晃动相关的transition属性 */
+}
+
+.inner {
+    width: 100%;
+    height: 100%;
+    display: table;
+}
+
+.cont {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.time {
+    text-align: center;
+    font-size: 60px;
+    color: white;
+    text-shadow: 0 5px 5px black;
+    font-family: "good_times_rg";
+}
+
+.date {
+    text-align: center;
+    font-size: 35px;
+    color: white;
+    margin-top: -13px;
+    text-shadow: 0 5px 5px black;
+    font-family: "good_times_rg";
+}
+
+.author {
+    text-align: center;
+    font-size: 24px;
+    color: white;
+    margin-bottom: 15px;
+    text-shadow: 0 3px 3px black;
+    font-family: "good_times_rg";
+}
+
+#particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+}

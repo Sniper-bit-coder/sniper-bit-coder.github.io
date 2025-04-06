@@ -1,0 +1,20 @@
+{
+    "contentrating": "Everyone",
+    "description": "综合互动效果壁纸，包含流星、时钟和粒子效果。鼠标移动时会产生画面晃动和粒子互动效果。",
+    "file": "index.html",
+    "general": {
+        "properties": {
+            "schemecolor": {
+                "order": 0,
+                "text": "ui_browse_properties_scheme_color",
+                "type": "color",
+                "value": "0 0 0"
+            }
+        }
+    },
+    "preview": "preview.jpg",
+    "tags": ["Abstract", "Landscape", "Interactive"],
+    "title": "综合互动效果壁纸",
+    "type": "web",
+    "visibility": "public"
+}

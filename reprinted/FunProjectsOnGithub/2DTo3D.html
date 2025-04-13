@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>光线投射游戏</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        canvas{
+            background: #fff;
+            display: block;
+            height: 100vh;
+            width: 100vw;
+        }
+    </style>
+    <script src="./lib/canvasWidget.js"></script>
+</head>
+<body>
+    <canvas></canvas>
+</body>
+<script>
+    class Player{
+        absoluteX = 0;
+        absoluteY = 0;
+        radius = 4;
+        angle = 0;
+        sightLineLength = 500;
+        keyMap = {
+            w:'up',
+            a:'up',
+            s:'up',
+            d:'up',
+        };
+        constructor(){
+
+        }
+        setAngle(angle){
+            this.angle = angle; 
+        }
+        setPos(absoluteX,absoluteY){
+            this.absoluteX = absoluteX;
+            this.absoluteY = absoluteY;
+        }
+    }
+
+    class Camera{
+        x = 600;
+        y = 400;
+        width = 600;
+        height = 500;
+        backgroundColor = '#555';
+        constructor(radar){
+            this.radar = radar;
+            radar.camera = this;
+        }
+        _draw(distanceArray){
+            const ctx = app.graphics;
+            ctx.beginPath();
+            ctx.rect(this.x,this.y,this.width,300);
+            ctx.fillStyle = "#11102E";
+            ctx.fill();
+            ctx.beginPath();
+            ctx.rect(this.x,this.y+300,this.width,200);
+            ctx.fillStyle = "#15151C";
+            ctx.fill();
+            this.draw3dWalls(distanceArray,500);
+        }
+
+        /**
+         * 画伪3d的墙体
+         * 
+         * @param {number[]} distanceArray 距离数组
+         * @param {number} wallHeight 墙体高度 
+         */
+        draw3dWalls(distanceArray,wallHeight){
+            const ctx = app.graphics;
+
+            //计算每单位墙体的宽度
+            const wallWidth = this.width / distanceArray.length;
+
+            for(let i=0;i<distanceArray.length;i++){
+                const distance = distanceArray[i];
+                //计算墙体的高度
+                const wallHeight = 300 - distance*0.6;
+                ctx.beginPath();
+                ctx.rect(this.x + i * wallWidth,700-wallHeight/2,wallWidth,wallHeight);
+                let color = 255 - distance*0.6;
+                ctx.fillStyle = `rgb(${color},${color},${color})`;
+                ctx.fill();
+            }
+        }
+        
+    }
+
+    class Wall{
+        pos={
+            //x,y
+            start:[0,0],
+            end:[100,100]
+        }
+        constructor(start,end){
+            this.pos.start = start;
+            this.pos.end = end;
+        }
+    }
+    class WorldMap{
+        walls = [];
+        constructor(){
+            //左分支
+            this.walls.push(new Wall([20,200],[200,200]));
+            this.walls.push(new Wall([20,300],[200,300]));
+
+            //右分支
+            this.walls.push(new Wall([300,200],[480,200]));
+            this.walls.push(new Wall([300,300],[480,300]));
+
+            //下分支
+            this.walls.push(new Wall([200,300],[200,450]));
+            this.walls.push(new Wall([300,300],[300,450]));
+        }
+    }
+
+    class Radar extends Widget{
+        camera = null;
+        backgroundColor = '#fff';
+        player = new Player();
+        isMouseLeftDown = false;
+        x = 100;
+        y = 400;
+        width = 500;
+        height = 500;
+        worldMap = new WorldMap();
+        constructor(desktop){
+            super(desktop);
+            this.player.setPos(this.x + 100,this.y + 100);
+            window.addEventListener("keydown",this.onKeyDown.bind(this));
+            window.addEventListener("keyup",this.onKeyUp.bind(this));
+        }
+        onKeyDown(e){
+            if(this.player.keyMap[e.key]){
+                this.player.keyMap[e.key] = 'down';
+            }
+            
+        }
+        onKeyUp(e){
+            if(this.player.keyMap[e.key]){
+                this.player.keyMap[e.key] = 'up';
+            }
+        }
+        onMouseLDown(){
+           this.isMouseLeftDown = true; 
+        }
+        onMouseLUp(){
+            this.isMouseLeftDown = false; 
+        }
+
+        _loop(){
+           super._loop();
+           if(this.isMouseLeftDown){
+                const {absoluteX,absoluteY} = app.mouse;
+                if(!this.isInArea(absoluteX,absoluteY)){
+                    this.isMouseLeftDown = false;
+                    return;
+                }
+                this.player.absoluteX = absoluteX;
+                this.player.absoluteY = absoluteY;
+            }
+            //旋转速度
+            const rotateSpeed = 0.01;
+
+            if(this.player.keyMap.a === 'down'){
+                this.player.angle -= rotateSpeed;
+            }
+            if(this.player.keyMap.d === 'down'){
+                this.player.angle += rotateSpeed;
+            }
+            //移动速度
+            const moveSpeed = 1;
+
+            if(this.player.keyMap.w === 'down'){
+                this.player.absoluteX += Math.cos(this.player.angle) * moveSpeed;
+                this.player.absoluteY += Math.sin(this.player.angle) * moveSpeed;
+            }
+            if(this.player.keyMap.s === 'down'){
+                this.player.absoluteX -= Math.cos(this.player.angle) * moveSpeed;
+                this.player.absoluteY -= Math.sin(this.player.angle) * moveSpeed;
+            }
+        }
+        //获取两条有限长线段的交点
+        //与平常的数学题不一样的是
+        //坐标轴纵轴下半周部分是正方向
+        getIntersection(line1, line2) {
+            //第一条直线,y取反是为了翻转y方向
+            let x1 = line1.start[0];
+            let y1 = -line1.start[1];
+            let x2 = line1.end[0];
+            let y2 = -line1.end[1];
+
+            //求出y=kx+b的k和b
+            let k1 = (y2 - y1) / (x2 - x1);
+            let b1 = y1 - k1 * x1;
+
+            //第二条直线
+            let x3 = line2.start[0];
+            let y3 = -line2.start[1];
+            let x4 = line2.end[0];
+            let y4 = -line2.end[1];
+
+            //求出y=kx+b的k和b
+            let k2 = (y4 - y3) / (x4 - x3);
+            let b2 = y3 - k2 * x3;
+
+            //如果k1和k2相等，说明两条直线平行，没有交点
+            if (k1 === k2) {
+                return null;
+            }
+
+            let x;
+            let y;
+            //如果k2是-无穷，那么第二根直线是垂直的
+            //解x就是这个线的x
+            if (k2 == -Infinity) {
+                x = x3;
+                y = k1 * x + b1;
+            }else{
+                //求出交点的x坐标
+                x = (b2 - b1) / (k1 - k2);
+                //求出交点的y坐标
+                y = k2 * x + b2;
+            }
+
+            //计算交点是否在直线上
+            if (x >= Math.min(x1, x2) && x <= Math.max(x1, x2) && x >= Math.min(x3, x4) && x <= Math.max(x3, x4)&&
+                y >= Math.min(y1, y2) && y <= Math.max(y1, y2) && y >= Math.min(y3, y4) && y <= Math.max(y3, y4)) {
+                return [x, -y]; 
+            }
+            
+            return null;
+        }
+        //获取视线与地图的交点
+        getIntersectionWithMap(sighetLine){
+            const intersections = [];
+            for(const wall of this.worldMap.walls){
+                const absoluteWallPos = {
+                    start:[this.absoluteX + wall.pos.start[0],this.absoluteY + wall.pos.start[1]],
+                    end:[this.absoluteX + wall.pos.end[0],this.absoluteY + wall.pos.end[1]] 
+                }
+                const intersection = this.getIntersection(sighetLine,absoluteWallPos);
+                if(intersection){
+                    intersections.push(intersection);
+                }
+            }
+            if(!intersections.length){
+                return null; 
+            }
+            //找到离玩家最近的交点
+            let minDistance = 0;
+            let minIntersection = null;
+            for(let i=0;i<intersections.length;i++){
+                const distance = Math.sqrt(Math.pow(intersections[i][0] - this.player.absoluteX,2) + Math.pow(intersections[i][1] - this.player.absoluteY,2));
+                if(i === 0 || distance < minDistance){
+                    minDistance = distance;
+                    minIntersection = intersections[i];
+                }
+            }
+            return minIntersection;
+        }
+        /**
+         * 获取玩家面前墙的距离
+         * @param {*} fov 视野
+         * @param {*} rayCount 射线数量
+         * @returns {number[]} 距离数组
+         */
+        getDistanceToWallArray(fov,rayCount){
+            let distanceArray = [];
+            //计算射线的角度
+            const rayAngle = fov / rayCount;
+            //计算射线的起始角度
+            const startAngle = this.player.angle - fov / 2;
+            //计算射线的终点角度
+            const endAngle = this.player.angle + fov / 2;
+            for(let i=0;i<rayCount;i++){
+                //计算射线的角度
+                const angle = startAngle + i * rayAngle;
+                //计算射线的终点
+                const endX = this.player.absoluteX + Math.cos(angle) * this.player.sightLineLength;
+                const endY = this.player.absoluteY + Math.sin(angle) * this.player.sightLineLength;
+                //障碍物交点
+                const intersection = this.getIntersectionWithMap({
+                    start:[this.player.absoluteX,this.player.absoluteY],
+                    end:[endX,endY] 
+                })
+                if(intersection){
+                    //计算射线的终点与玩家的距离
+                    const distance = Math.sqrt(Math.pow(intersection[0] - this.player.absoluteX,2) + Math.pow(intersection[1] - this.player.absoluteY,2));
+                    distanceArray.push(distance); 
+                }else{
+                    distanceArray.push(this.player.sightLineLength); 
+                }
+            }
+            return distanceArray;
+        }
+        onDraw(){
+            this._drawPlayer();
+            //this._drawSightLine();
+            this._drawWorldMap();
+            const fov = Math.PI / 4;
+            const rayCount = 100;
+            const distanceArray = this.getDistanceToWallArray(fov,rayCount);
+            this._drawSightLines(fov,distanceArray);
+            if(this.camera){
+                this.camera._draw(distanceArray); 
+            }
+            //画提示文字
+            const ctx = app.graphics;
+            ctx.beginPath();
+            ctx.fillStyle = '#fff';
+            ctx.font = '16px Arial';
+            ctx.fillText(`WASD按键分别对应操作：前进、左转、后退、右转`,this.x,this.y - 16);
+
+        }
+        _drawWorldMap(){
+            const ctx = app.graphics;
+            ctx.beginPath();
+            this.worldMap.walls.forEach(wall=>{
+                const {start,end} = wall.pos;
+                ctx.moveTo(this.absoluteX+start[0],this.absoluteY+start[1]);
+                ctx.lineTo(this.absoluteX+end[0],this.absoluteY+end[1]);
+            });
+            ctx.strokeStyle = '#000';
+            ctx.stroke();
+        }
+        _drawPlayer(){
+            const {absoluteX,absoluteY,radius} = this.player;
+            const ctx = app.graphics;
+            ctx.beginPath();
+            //画角色
+            ctx.arc(absoluteX,absoluteY,radius,0,Math.PI*2);
+            ctx.fillStyle = '#000';
+            ctx.fill();
+            
+        }
+        //画射线
+        _drawSightLines(fov,distanceArray){
+            const ctx = app.graphics;
+            //画射线
+            for(let i=0;i<distanceArray.length;i++){
+                //计算终点位置
+                const distance = distanceArray[i];
+                const angle = this.player.angle - fov / 2 + i * fov / distanceArray.length;
+                const endX = this.player.absoluteX + Math.cos(angle) * distance;
+                const endY = this.player.absoluteY + Math.sin(angle) * distance;
+                ctx.beginPath();
+                ctx.moveTo(this.player.absoluteX,this.player.absoluteY);
+                ctx.lineTo(endX,endY);
+                ctx.strokeStyle = '#000';
+                ctx.stroke();
+
+            }
+        }
+        _drawSightLine(){
+            const ctx = app.graphics;
+            //画视线
+            ctx.moveTo(this.player.absoluteX,this.player.absoluteY);
+            const dx = Math.cos(this.player.angle)*this.player.sightLineLength;
+            const dy = Math.sin(this.player.angle)*this.player.sightLineLength;
+            ctx.lineTo(this.player.absoluteX + dx,this.player.absoluteY + dy);
+            ctx.strokeStyle = '#000';
+            ctx.stroke();
+        }
+    }
+
+
+    const app = new Application(document.querySelector('canvas'));
+    const desktop = new Desktop(app);
+    desktop.setShowPerformance(true);
+    desktop.backgroundColor = '#3B3B3B';
+
+    const radar = new Radar(desktop);
+    const camera = new Camera(radar);
+
+</script>
+</html>

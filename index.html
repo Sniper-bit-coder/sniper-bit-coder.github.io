@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>熵增骇客 | 赛博朋克数据库</title>
+    <link rel="shortcut icon" href="CSSPNG\ico.png" />
+    <link rel="stylesheet" href="CSSPNG\index.css">
+    <!-- 使用 preconnect 和 preload 优化字体加载 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+    <!-- 预加载关键资源 -->
+    <link rel="preload" href="js/main.js" as="script">
+    <link rel="preload" href="CSSPNG\ico.png" as="image">
+</head>
+
+<body>
+    <!-- 添加加载指示器 -->
+    <div id="loading-screen" style="position:fixed; top:0; left:0; width:100%; height:100%; background-color:#000; z-index:9999; display:flex; justify-content:center; align-items:center;">
+        <div class="cyber-loader"></div>
+    </div>
+    
+    <div class="noise-overlay"></div>
+    
+    <nav class="cyber-nav">
+        <div class="nav-container">
+            <a href="https://sniper-bit-coder.github.io/">
+                <img src="CSSPNG\logo.png" alt="//熵增骇客" class="logo">
+            </a>
+            <div class="nav-links">
+                <!-- <a href="#" class="cyber-button">文章</a>-->
+                <!-- <a href="#" class="cyber-button">网页</a>-->
+                <!-- <a href="#" class="cyber-button">游戏</a>-->
+                <a href="html/about.html" class="cyber-button">关于</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="search-box">
+        <input type="text" class="search-input" placeholder="搜索数据库...">
+        <div class="search-icon"></div>
+    </div>
+    
+    <div class="article-grid">
+
+        <article class="article-card">
+            <div class="article-category">[网页]</div>
+            <a href="#">精选视频</a>
+            <p>reprinted\Videos\wu\XX.mp4</p>
+            <div class="article-meta">2025.4.12.20:59:59 | <span class="cyber-tag">Sniper</span></div>
+            <div class="card-overlay"></div>
+        </article>
+
+        <article class="article-card">
+            <div class="article-category">[游戏]</div>
+            <a href="original\article\SWF.html">SWF游戏精选</a>
+            <p>精选了一些有趣的SWF游戏</p>
+            <div class="article-meta">2025.4.12.20:39:23 | <span class="cyber-tag">Sniper</span></div>
+            <div class="card-overlay"></div>
+        </article>
+
+        <article class="article-card">
+            <div class="article-category">[游戏]</div>
+            <a href="original\article\Y8Games.html">Y8游戏精选</a>
+            <p>精选了一些有趣的Y8在线游戏，包括赛车、射击、多人游戏等多种类型...</p>
+            <div class="article-meta">2025.4.12.20:22:35 | <span class="cyber-tag">Sniper</span></div>
+            <div class="card-overlay"></div>
+        </article>
+
+        <article class="article-card">
+            <div class="article-category">[网页]</div>
+            <a href="original\article\bookmarks_2025_4_12.html">我的书签</a>
+            <p>我的书签</p>
+            <div class="article-meta">2025.4.12.18:29:24 | <span class="cyber-tag">Sniper</span></div>
+            <div class="card-overlay"></div>
+        </article>
+
+        <article class="article-card">
+            <div class="article-category">[游戏]</div>
+            <a href="original\game\Black market trading simulator\index.html">黑市交易模拟器</a>
+            <p>一个带有赛博朋克风格UI的黑市交易模拟游戏,玩家可以通过买卖各类违禁品赚取差价,具有动态价格系统和日志记录功能支持存档。</p>
+            <div class="article-meta">2025.4.12.11:59:20 | <span class="cyber-tag">Sniper</span></div>
+            <div class="card-overlay"></div>
+        </article>
+
+        <article class="article-card">
+            <div class="article-category">[网页]</div>
+            <a href="original\article\background.html">动态壁纸展示</a>
+            <p>在线预览我制作的动态壁纸，同时提供壁纸软件下载...</p>
+            <div class="article-meta">2025.4.6.17:12:54 | <span class="cyber-tag">Sniper</span></div>
+            <div class="card-overlay"></div>
+        </article>
+
+
+        <article class="article-card">
+            <div class="article-category">[网页]</div>
+            <a href="original\web\LessFaceOut\index.html">(平替)复刻已消逝的网站</a>
+            <p>(平替)复刻了2023年的那个网站...</p>
+            <div class="article-meta">2025.4.6.13:36:21 | <span class="cyber-tag">Sniper</span></div>
+            <div class="card-overlay"></div>
+        </article>
+
+        <article class="article-card">
+            <div class="article-category">[网页]</div>
+            <a href="original\web\FaceOut\index.html">复刻已消逝的网站</a>
+            <p>复刻了2023年的那个网站...</p>
+            <div class="article-meta">2025.4.6.10:44:56 | <span class="cyber-tag">Sniper</span></div>
+            <div class="card-overlay"></div>
+        </article>
+
+        <article class="article-card">
+            <div class="article-category">[游戏]</div>
+            <a href="original\game\HelpWangGetMoon\index.html">帮助王逸凡拉下月球</a>
+            <p>在倒计时结束前尽可能多次点击按钮来帮助王逸凡拽下月球...</p>
+            <div class="article-meta">2025.4.5.18:24:18 | <span class="cyber-tag">Sniper</span></div>
+            <div class="card-overlay"></div>
+        </article>
+
+        <article class="article-card">
+            <div class="article-category">[网页]</div>
+            <a href="original\article\FunProjectsOnGithub.html">GitHub有趣项目</a>
+            <p>这些项目展示了开发者们的创造力和技术能力。从实用工具到创意游戏，这些项目涵盖了各种各样的领域...</p>
+            <div class="article-meta">2025.4.4.19:58:31 | <span class="cyber-tag">Sniper</span></div>
+            <div class="card-overlay"></div>
+        </article>
+
+        <article class="article-card">
+            <div class="article-category">[游戏]</div>
+            <a href="original\article/13KbGame.html">精选13KB游戏</a>
+            <p>这些游戏展示了在严格的大小限制下，开发者们的创造力和技术能力。每个游戏都不超过13KB，却提供了令人惊叹的游戏体验...</p>
+            <div class="article-meta">2025.4.3.21:54:20 | <span class="cyber-tag">Sniper</span></div>
+            <div class="card-overlay"></div>
+        </article>
+
+        <article class="article-card">
+            <div class="article-category">[网页]</div>
+            <a href="original\web\WYF\WYF1.html">王逸凡黑料爆料</a>
+            <p>王逸凡用显微摄像机记录受害者细胞死亡过程的怪癖，建立"死亡美学档案馆"...</p>
+            <div class="article-meta">2025.3.22.14:20:47 | <span class="cyber-tag">Sniper</span></div>
+            <div class="card-overlay"></div>
+        </article>
+    </div>
+
+    <div class="pagination">
+        <a href="#" class="page-item">上一页</a>
+        <a href="#" class="page-item active">1</a>
+        <a href="#" class="page-item">下一页</a>
+    </div>
+
+    <footer>
+        <div class="terminal-footer">
+            <div class="terminal-line">
+                <span class="terminal-prompt">----></span>
+                <span class="terminal-command">index.html</span>
+            </div>
+            <div class="terminal-output">
+                <span class="terminal-text">© 2025 熵增骇客，所有权利保留</span>
+            </div>
+        </div>
+        
+        <div class="footer-links">
+            <a href="html/about.html">关于</a>
+            <a href="html/privacy.html">隐私政策</a>
+            <a href="html/contact.html">联系我们</a>
+            <a href="html/SomeTalks.html">作者的话</a>
+        </div>
+    </footer>
+
+    <!-- 粒子画布容器 -->
+    <div id="cyber-particle" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9;"></div>
+    
+    <!-- 动态文字容器 -->
+    <div id="hologram-text"></div>
+
+    <!-- 将脚本移到底部并添加 defer 属性 -->
+    <!--<script src="https://cdn.jsdelivr.net/js/particles.js/2.0.0/particles.min.js" defer></script>-->
+    <!-- <script src="js/particles.js" defer></script>-->
+    <!--<script src="js/main.js" defer></script>-->
+    <script src="js/search.js" defer></script>
+    
+    <script>
+        // 页面加载完成后隐藏加载指示器
+        window.addEventListener('load', function() {
+            document.getElementById('loading-screen').style.display = 'none';
+        });
+    </script>
+    <!-- 在 body 结束标签前添加 -->
+    <script src="js/cyberpunk-effects.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>elasticWindow</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        canvas{
+            background: #fff;
+            display: block;
+            height: 100vh;
+            width: 100vw;
+            
+        }
+    </style>
+    <script src="./lib/canvasWidget.js"></script>
+</head>
+<body>
+    <canvas></canvas>
+</body>
+<script>
+const app = new Application(document.querySelector('canvas'));
+const desktop = new Desktop(app);
+desktop.setShowPerformance(true);
+for(let i=0;i<5;i++){
+    const x = 300 + i*50;
+    const y = 300 + i*50;
+    const window = new Window(desktop);
+    window.setPos(x,y)
+          .setSize(800,600)
+          .setTitle(`Window ${i}`);
+}
+</script>
+</html>

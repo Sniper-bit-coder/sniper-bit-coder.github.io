@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作者的话 | 熵增骇客</title>
+    <link rel="shortcut icon" href="../CSSPNG/ico.png" />
+    <link rel="stylesheet" href="../CSSPNG/index.css">
+    <!-- 使用 preconnect 和 preload 优化字体加载 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+
+<body>
+    <!-- 添加加载指示器 -->
+    <div id="loading-screen" style="position:fixed; top:0; left:0; width:100%; height:100%; background-color:#000; z-index:9999; display:flex; justify-content:center; align-items:center;">
+        <div class="cyber-loader"></div>
+    </div>
+    
+    <div class="noise-overlay"></div>
+    
+    <nav class="cyber-nav">
+        <div class="nav-container">
+            <a href="https://sniper-bit-coder.github.io/" class="logo">
+                <img src="../CSSPNG/logo.png" alt="//熵增骇客" style="width:auto; height:100%;">
+            </a>
+            <div class="nav-links">
+                <!-- 导航链接 -->
+            </div>
+        </div>
+    </nav>
+    
+    <div class="about-container" style="max-width: 800px; margin: 3rem auto; padding: 0 1rem; background: rgba(0,0,0,0.7); border: 1px solid var(--neon-blue); box-shadow: 0 0 20px rgba(0, 255, 255, 0.2); padding: 2rem;">
+        <h1 style="margin: 0 auto 2rem; width: fit-content; color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue);">调试：当天才遇上捂脸时刻<span style="font-size: 0.6em; color: var(--neon-pink);">2025.4.12.21:59:53</span></h1>
+        <p>最近和这个网站的顽固bug大战三百回合。在代码里埋头苦干了老半天，像个代码忍者般解决了一堆复杂问题，自己都惊叹居然能修复那些看不懂的逻辑...最后所有功能都调通了，成就感爆棚。结果发现——这破玩意儿居然还卡在加载界面！</p>
+        <p>经过这番英勇的调试，你猜最后的问题出在哪？我搞定了所有难题，唯独忘记告诉加载指示器在页面就绪后要消失。没错，就像摄影师拍完照才发现镜头盖没摘，所有努力被个数字时代的镜头盖封印了。编程有时很酷炫，有时嘛...就这德行。</p>
+        <p>总之，很高兴你成功跳过了加载界面！</p>
+    </div>
+
+    <footer>
+        <div class="terminal-footer">
+            <div class="terminal-line">
+                <span class="terminal-prompt">----></span>
+                <span class="terminal-command">SomeTalks.html</span>
+            </div>
+            <div class="terminal-output">
+                <span class="terminal-text">© 2025 熵增骇客，所有权利保留</span>
+            </div>
+        </div>
+        
+        <div class="footer-links">
+            <a href="../index.html">首页</a>
+            <a href="privacy.html">隐私政策</a>
+            <a href="contact.html">联系我们</a>
+            <a href="about.html">关于</a>
+        </div>
+    </footer>
+
+    <!-- 粒子画布容器 -->
+    <div id="cyber-particle" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9;"></div>
+    
+    <!-- 动态文字容器 -->
+    <div id="hologram-text"></div>
+
+    <script src="../js/search.js" defer></script>
+    
+    <script>
+        // 页面加载完成后隐藏加载指示器
+        window.addEventListener('load', function() {
+            document.getElementById('loading-screen').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

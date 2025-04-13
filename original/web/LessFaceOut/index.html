@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Cookies 确认</title>
+    <style>
+        .cookie-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            text-decoration: none;
+            color: black;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #f0f0f0;
+        }
+
+        #videoPlayer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        #videoPlayer::-webkit-media-controls-enclosure,
+        #videoPlayer::-webkit-media-controls-panel,
+        #videoPlayer::-webkit-media-controls-timeline,
+        #videoPlayer::-webkit-media-controls {
+            display: none !important;
+        }
+
+        .terms-link {
+            display: block;
+            margin-top: 15px;
+            text-decoration: none;
+            font-size: 16px;
+            background: linear-gradient(180deg, transparent 50%, #e8ecfc 50%);
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            text-decoration: none
+        }
+
+        #play:target ~ .cookie-popup {
+            display: none;
+        }
+
+        #play:target ~ #videoPlayer {
+            display: block;
+        }
+
+        #play {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="play"></div>
+    
+    <div class="cookie-popup">
+        <h2>Cookies 设置</h2>
+        <p>本网站使用 Cookies 来改善您的浏览体验。您是否同意使用 Cookies？</p>
+        <div class="buttons">
+            <a href="#play" class="button">接受</a>
+            <a href="#play" class="button">拒绝</a>
+        </div>
+        <a href="#" class="terms-link">服务条款</a>
+    </div>
+
+    <video id="videoPlayer" src="ree.mp4" autoplay loop disablePictureInPicture controlsList="nodownload noplaybackrate" oncontextmenu="return false;" muted></video>
+</body>
+</html>

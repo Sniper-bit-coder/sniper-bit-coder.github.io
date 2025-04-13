@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>黑市交易模拟器</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>黑市交易模拟器</h1>
+        
+        <div class="player-info">
+            <h2>玩家信息</h2>
+            <div class="money-display">资金: <span id="player-money">10000</span> 元</div>
+            <button id="next-day">进入下一天</button>
+        </div>
+        
+        <div class="market">
+            <h2>黑市商品</h2>
+            <div id="items-list"></div>
+        </div>
+        
+        <div class="inventory">
+            <h2>我的库存</h2>
+            <div id="player-inventory"></div>
+        </div>
+        
+        <div class="log">
+            <h2>交易日志</h2>
+            <div id="log-content"></div>
+        </div>
+    </div>
+
+    <div class="save-section">
+        <h2>存档管理</h2>
+        <textarea class="save-code" placeholder="点击"导出存档"按钮生成存档代码，或在此粘贴存档代码后点击"导入存档""></textarea>
+        <div class="save-buttons">
+            <button class="export-save">导出存档</button>
+            <button class="import-save">导入存档</button>
+        </div>
+    </div>
+
+    <script src="js/game.js"></script>
+    <script src="js/js/cyberpunk-effects.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const game = new BlackMarket();
+        });
+    </script>
+</body>
+</html>

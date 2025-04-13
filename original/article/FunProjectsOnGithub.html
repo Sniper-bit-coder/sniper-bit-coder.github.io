@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub有趣项目 | 熵增骇客</title>
+    <link rel="shortcut icon" href="../../CSSPNG\ico.png" />
+    <link rel="stylesheet" href="../../CSSPNG\index.css">
+    <!-- 使用 preconnect 和 preload 优化字体加载 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- 添加加载指示器 -->
+    <div id="loading-screen" style="position:fixed; top:0; left:0; width:100%; height:100%; background-color:#000; z-index:9999; display:flex; justify-content:center; align-items:center;">
+        <div class="cyber-loader"></div>
+    </div>
+    
+    <div class="noise-overlay"></div>
+    
+    <nav class="cyber-nav">
+        <div class="nav-container">
+            <a href="../../index.html">
+                <img src="../../CSSPNG\logo.png" alt="//熵增骇客" class="logo">
+            </a>
+            <div class="nav-links">
+                <a href="../../html/about.html" class="cyber-button">关于</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="article-container" style="max-width: 1000px; margin: 2rem auto; padding: 0 1rem;">
+        <h1 class="article-title" style="color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); margin-bottom: 2rem; text-align: center;">GitHub上的有趣项目</h1>
+        
+        <div class="article-content">
+            <div class="disclaimer-box" style="background: rgba(255, 0, 255, 0.1); border: 1px solid var(--neon-pink); padding: 1rem; margin-bottom: 2rem; border-radius: 4px;">
+                <p><strong>声明：</strong>本页面展示的所有项目均来自于 <a href="https://github.com/" target="_blank">GitHub</a>。所有项目的版权归原作者所有。这些项目被选择是因为它们展示了开发者的创造力和技术能力。</p>
+            </div>
+            
+            <p>以下是精选的GitHub上有趣的开源项目，这些项目展示了开发者们的创造力和技术能力。从实用工具到创意游戏，这些项目涵盖了各种各样的领域。</p>
+            
+            <div class="projects-grid" id="projects-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                <!-- 项目卡片将通过JavaScript动态生成或手动添加 -->
+                <div class="loading-projects" style="grid-column: 1/-1; text-align: center; color: var(--neon-blue);">
+                    正在加载项目列表...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="terminal-footer">
+            <div class="terminal-line">
+                <span class="terminal-prompt">----></span>
+                <span class="terminal-command">FunProjectsOnGithub.html</span>
+            </div>
+            <div class="terminal-output">
+                <span class="terminal-text">© 2025 熵增骇客，所有权利保留</span>
+            </div>
+        </div>
+        
+        <div class="footer-links">
+            <a href="../../html/about.html">关于</a>
+            <a href="../../html/privacy.html">隐私政策</a>
+            <a href="../../html/contact.html">联系我们</a>
+        </div>
+    </footer>
+
+    <!-- 粒子画布容器 -->
+    <div id="cyber-particle" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9;"></div>
+    
+    <!-- 动态文字容器 -->
+    <div id="hologram-text"></div>
+
+    <!-- 将脚本移到底部并添加 defer 属性 -->
+    <!--<script src="https://cdn.jsdelivr.net/js/particles.js/2.0.0/particles.min.js" defer></script>-->
+    <!--<!--<!--<script src="../js/particles.js" defer></script>-->-->-->
+    <!--<script src="../js/main.js" defer></script>-->
+    
+    <script>
+        // 页面加载完成后隐藏加载指示器
+        window.addEventListener('load', function() {
+            document.getElementById('loading-screen').style.display = 'none';
+        });
+        
+        // 项目数据加载和展示
+        document.addEventListener('DOMContentLoaded', function() {
+            const projectsContainer = document.getElementById('projects-container');
+            
+            // 示例项目数据
+            // 在实际应用中，您可以通过读取目录下的HTML文件来动态生成这个列表
+            const projects = [
+                {
+                    title: "光线投射效果",
+                    localPath: "../../reprinted/FunProjectsOnGithub/2DTo3D.html",
+                    author: "heyManNice"
+                },
+                {
+                    title: "文字聚集在鼠标效果",
+                    localPath: "../../reprinted/FunProjectsOnGithub/TextAggregation.html",
+                    author: "heyManNice"
+                },
+                {
+                    title: "文字分散效果",
+                    localPath: "../../reprinted/FunProjectsOnGithub/TextDispersion.html",
+                    author: "heyManNice"
+                },
+                {
+                    title: "窗口模拟效果",
+                    localPath: "../../reprinted/FunProjectsOnGithub/WindowImitation.html",
+                    author: "heyManNice"
+                },
+            ];
+            
+            // 清除加载提示
+            projectsContainer.innerHTML = '';
+            
+            // 生成项目卡片
+            projects.forEach(project => {
+                const projectCard = document.createElement('div');
+                projectCard.className = 'article-card';
+                projectCard.innerHTML = `
+                    <div class="article-category">[GitHub项目]</div>
+                    <a href="${project.localPath}" target="_blank">${project.title}</a>
+                    <div class="article-meta">作者: ${project.author} | <span class="cyber-tag">开源</span></div>
+                    <div class="card-overlay"></div>
+                `;
+                projectsContainer.appendChild(projectCard);
+            });
+            
+            // 添加提示信息
+            const infoNote = document.createElement('div');
+            infoNote.style.gridColumn = '1/-1';
+            infoNote.style.marginTop = '2rem';
+            infoNote.style.padding = '1rem';
+            infoNote.style.background = 'rgba(0, 255, 255, 0.1)';
+            infoNote.style.border = '1px solid var(--neon-blue)';
+            infoNote.innerHTML = `
+                <p>注意：以上项目列表是根据服务器上的文件自动生成的。如果您想添加更多项目，只需将项目文件放入 reprinted/FunProjectsOnGithub/ 目录下的相应文件夹中，并确保每个项目文件夹包含一个 index.html 文件。</p>
+                <p>所有项目均来自 <a href="https://github.com/" target="_blank">GitHub</a>，版权归原作者所有。</p>
+            `;
+            projectsContainer.appendChild(infoNote);
+        });
+    </script>
+</body>
+</html>

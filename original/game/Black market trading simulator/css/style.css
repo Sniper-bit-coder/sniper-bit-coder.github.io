@@ -1,0 +1,508 @@
+/* 全局样式 */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0a0a12;
+    color: #c4d1e1;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+    background-image: linear-gradient(45deg, #0a0a12 0%, #1a1a2e 100%);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+h1, h2, h3, h4 {
+    color: #f0f2ff;
+    margin-top: 0;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ff2a6d;
+    text-shadow: 0 0 15px rgba(255, 42, 109, 0.7);
+    font-size: 2.5em;
+    grid-column: span 2;
+}
+
+/* 玩家信息区域 */
+.player-info {
+    background-color: #1a1a2e;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+    border: 1px solid #2a2a4a;
+    grid-column: span 2;
+    background-image: linear-gradient(to bottom, #1a1a2e, #16213e);
+}
+
+.player-info h2 {
+    color: #05ffa1;
+    border-bottom: 1px solid #2a2a4a;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.money-display {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#player-money {
+    color: #05ffa1;
+    font-size: 1.4em;
+    text-shadow: 0 0 8px rgba(5, 255, 161, 0.5);
+}
+
+/* 市场和库存区域 */
+.market, .inventory {
+    background-color: #1a1a2e;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    border: 1px solid #2a2a4a;
+    background-image: linear-gradient(to bottom, #1a1a2e, #16213e);
+}
+
+.market h2, .inventory h2 {
+    color: #00f6ff;
+    border-bottom: 1px solid #2a2a4a;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+/* 物品样式 */
+.item {
+    background-color: #16213e;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #00f6ff;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 246, 255, 0.1),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.item:hover::before {
+    left: 100%;
+}
+
+.item:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 246, 255, 0.2),
+                0 0 20px rgba(0, 246, 255, 0.1);
+}
+
+.item h4 {
+    margin: 0 0 10px 0;
+    color: #00f6ff;
+}
+
+.item p {
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+
+/* 按钮样式 */
+button {
+    background-color: #3a0ca3;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+    margin-left: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+button::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    transform: rotate(45deg);
+    transition: 0.5s;
+    opacity: 0;
+}
+
+button:hover::after {
+    opacity: 1;
+}
+
+button:hover {
+    background-color: #4361ee;
+    box-shadow: 0 4px 8px rgba(67, 97, 238, 0.4);
+}
+
+#next-day {
+    background-color: #f72585;
+    background-image: linear-gradient(to right, #f72585, #b5179e);
+    padding: 12px 24px;
+    font-size: 1.1em;
+    display: block;
+    margin: 20px auto;
+    width: 200px;
+}
+
+#next-day:hover {
+    background-color: #7209b7;
+    background-image: linear-gradient(to right, #7209b7, #f72585);
+}
+
+/* 类别样式 */
+.category {
+    margin-bottom: 20px;
+    border: 1px solid #2a2a4a;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.category-header {
+    background-color: #2a2a4a;
+    padding: 10px 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-header h3 {
+    margin: 0;
+}
+
+.toggle-icon {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.category-content {
+    padding: 15px;
+}
+
+.category-content.collapsed {
+    display: none;
+}
+
+/* 日志区域 */
+.log {
+    background-color: #1a1a2e;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    border: 1px solid #2a2a4a;
+    max-height: 300px;
+    overflow-y: auto;
+    grid-column: span 2;
+    background-image: linear-gradient(to bottom, #1a1a2e, #16213e);
+}
+
+.log h2 {
+    color: #ff2a6d;
+    border-bottom: 1px solid #2a2a4a;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.log-entry {
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    border-left: 3px solid #2a2a4a;
+}
+
+.log-info {
+    background-color: #16213e;
+    border-left-color: #00f6ff;
+}
+
+.log-success {
+    background-color: #16213e;
+    border-left-color: #05ffa1;
+}
+
+.log-error {
+    background-color: #16213e;
+    border-left-color: #ff2a6d;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+    
+    h1, .player-info, .log {
+        grid-column: span 1;
+    }
+}
+
+/* 物品内容样式 */
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-content {
+    flex: 1;
+}
+
+/* 价格样式 */
+.price-original {
+    color: #c4d1e1;
+    font-weight: normal;
+}
+
+.price-current {
+    color: #00f6ff;
+    font-weight: bold;
+}
+
+/* 利润和价格变化样式 */
+.profit-up, .price-up {
+    position: relative;
+    padding-left: 5px;
+    border-left: 3px solid #05ffa1;
+}
+
+.profit-down, .price-down {
+    position: relative;
+    padding-left: 5px;
+    border-left: 3px solid #ff2a6d;
+}
+
+.profit-neutral, .price-neutral {
+    position: relative;
+    padding-left: 5px;
+    border-left: 3px solid #fee440;
+}
+
+/* 出售按钮样式 */
+.sell-button {
+    background-color: #3a0ca3;
+}
+
+.sell-button.profitable {
+    background-color: #05ffa1;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(5, 255, 161, 0.6);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(5, 255, 161, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(5, 255, 161, 0);
+    }
+}
+
+/* 存档功能区域样式优化 */
+.save-section {
+    background-color: #1a1a2e;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    border: 1px solid #2a2a4a;
+    grid-column: span 2;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-image: linear-gradient(to bottom, #1a1a2e, #16213e);
+}
+
+.save-section h2 {
+    color: #c77dff;
+    border-bottom: 1px solid #2a2a4a;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.save-code {
+    width: 100%;
+    background-color: #16213e;
+    color: #c4d1e1;
+    border: 1px solid #2a2a4a;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+    font-family: monospace;
+    resize: vertical;
+    min-height: 80px;
+    font-size: 0.9em;
+}
+
+.save-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.save-buttons button {
+    flex: 1;
+    padding: 10px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.export-save {
+    background-color: #7209b7;
+    background-image: linear-gradient(to right, #7209b7, #9d4edd);
+}
+
+.export-save:hover {
+    background-color: #560bad;
+    background-image: linear-gradient(to right, #560bad, #7209b7);
+}
+
+.import-save {
+    background-color: #4361ee;
+    background-image: linear-gradient(to right, #4361ee, #4cc9f0);
+}
+
+.import-save:hover {
+    background-color: #3a0ca3;
+    background-image: linear-gradient(to right, #3a0ca3, #4361ee);
+}
+
+/* 修改背景渐变，使其更具赛博朋克感 */
+body {
+    background-image: linear-gradient(45deg, #0a0a12 0%, #1a1a2e 50%, #2a1a3a 100%);
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        transparent 0%,
+        rgba(0, 246, 255, 0.03) 50%,
+        transparent 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* 增强标题的霓虹效果 */
+h1 {
+    animation: neonGlow 1.5s ease-in-out infinite alternate,
+              textGlitch 3s infinite;
+}
+
+/* 增强物品卡片的视觉效果 */
+.item {
+    background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+    border-left: 4px solid #00f6ff;
+    box-shadow: 0 2px 8px rgba(0, 246, 255, 0.2);
+}
+
+.item:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 246, 255, 0.3),
+                0 0 20px rgba(0, 246, 255, 0.2),
+                0 0 40px rgba(0, 246, 255, 0.1);
+}
+
+/* 添加新的动画效果 */
+@keyframes textGlitch {
+    0% {
+        text-shadow: 0.05em 0 0 #ff2a6d, -0.05em -0.025em 0 #00f6ff;
+        transform: translate(0);
+    }
+    5% {
+        text-shadow: -0.05em -0.025em 0 #ff2a6d, 0.025em 0.025em 0 #00f6ff;
+        transform: translate(-0.025em, 0.025em);
+    }
+    10% {
+        text-shadow: -0.05em -0.025em 0 #ff2a6d, 0.025em 0.025em 0 #00f6ff;
+        transform: translate(0.025em, -0.025em);
+    }
+    15% {
+        text-shadow: 0.05em 0.025em 0 #ff2a6d, -0.05em -0.025em 0 #00f6ff;
+        transform: translate(-0.025em, 0);
+    }
+    16% {
+        text-shadow: 0 0 0 #ff2a6d, 0 0 0 #00f6ff;
+        transform: translate(0);
+    }
+    100% {
+        text-shadow: 0 0 0 #ff2a6d, 0 0 0 #00f6ff;
+        transform: translate(0);
+    }
+}
+
+h1 {
+    animation: neonGlow 1.5s ease-in-out infinite alternate;
+}
+
+
+/* 故障效果 */
+.glitch-effect {
+    animation: glitch 0.2s ease-in-out;
+}
+
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-5px, 5px);
+    }
+    40% {
+        transform: translate(-5px, -5px);
+    }
+    60% {
+        transform: translate(5px, 5px);
+    }
+    80% {
+        transform: translate(5px, -5px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}

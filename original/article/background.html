@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态壁纸展示 | 熵增骇客</title>
+    <link rel="shortcut icon" href="../../CSSPNG\ico.png" />
+    <link rel="stylesheet" href="../../CSSPNG\index.css">
+    <!-- 使用 preconnect 和 preload 优化字体加载 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- 添加加载指示器 -->
+    <div id="loading-screen" style="position:fixed; top:0; left:0; width:100%; height:100%; background-color:#000; z-index:9999; display:flex; justify-content:center; align-items:center;">
+        <div class="cyber-loader"></div>
+    </div>
+    
+    <div class="noise-overlay"></div>
+    
+    <nav class="cyber-nav">
+        <div class="nav-container">
+            <a href="../../index.html">
+                <img src="../../CSSPNG\logo.png" alt="//熵增骇客" class="logo">
+            </a>
+            <div class="nav-links">
+                <a href="../../html/about.html" class="cyber-button">关于</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="article-container" style="max-width: 1000px; margin: 2rem auto; padding: 0 1rem;">
+        <h1 class="article-title" style="color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); margin-bottom: 2rem; text-align: center;">动态壁纸展示</h1>
+        
+        <div class="article-content">
+            <div class="description-box" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #fff; padding: 1.5rem; margin-bottom: 2rem; border-radius: 4px;">
+                <p>这是我制作的一款动态壁纸,它具有以下特点：</p>
+                <ul style="list-style-type: disc; margin-left: 1.5rem;">
+                    <li>简洁优雅的设计风格</li>
+                    <li>流畅的动画效果</li>
+                    <li>低资源占用</li>
+                    <li>可自定义的设置选项</li>
+                </ul>
+                <p>嫌粒子效果少的可以在js/main.js里搜:“var particleCount = ”,修改后面的数字(建议在30~500之间)</p>
+            </div>
+            
+            <div class="preview-section" style="margin: 2rem 0; text-align: center;">
+                <h2 style="color: #fff; margin-bottom: 1rem;">预览与下载</h2>
+                <div class="button-container" style="display: flex; justify-content: center; gap: 2rem;">
+                    <a href="../../original\web\Background\interactive\index.html" class="cyber-button" target="_blank" style="font-size: 1.2rem; padding: 1rem 2rem;">
+                        在线预览
+                    </a>
+                    <a href="https://pan.xunlei.com/s/VONA1FLohW1z66RK1Y-IoP-fA1" class="cyber-button" style="font-size: 1.2rem; padding: 1rem 2rem;">
+                        下载壁纸(提取码：geh9)
+                    </a>
+                </div>
+            </div>
+            
+            <div class="installation-guide" style="margin-top: 3rem;">
+                <h2 style="color: #fff; margin-bottom: 1rem;">安装说明</h2>
+                <ol style="list-style-type: decimal; margin-left: 1.5rem;">
+                    <li>下载并解压 Wallpaper Engine.7z 文件</li>
+                    <li>确保您已安装 Wallpaper Engine</li>
+                    <li>将解压后的文件夹导入到 Wallpaper Engine 中</li>
+                    <li>在 Wallpaper Engine 中选择并应用壁纸</li>
+                </ol>
+            </div>
+            
+            <div class="note-box" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #fff; padding: 1rem; margin-top: 2rem; border-radius: 4px;">
+                <p><strong>注意：</strong>使用此壁纸需要安装 Wallpaper Engine 软件。如果您还没有安装，可以在 Steam 上购买并安装。</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="terminal-footer">
+            <div class="terminal-line">
+                <span class="terminal-prompt">----></span>
+                <span class="terminal-command">background.html</span>
+            </div>
+            <div class="terminal-output">
+                <span class="terminal-text">© 2025 熵增骇客，所有权利保留</span>
+            </div>
+        </div>
+        
+        <div class="footer-links">
+            <a href="../../html/about.html">关于</a>
+            <a href="../html/privacy.html">隐私政策</a>
+            <a href="../html/contact.html">联系我们</a>
+        </div>
+    </footer>
+
+    <!-- 粒子画布容器 -->
+    <div id="cyber-particle" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9;"></div>
+    
+    <!-- 动态文字容器 -->
+    <div id="hologram-text"></div>
+
+    <!-- 将脚本移到底部并添加 defer 属性 -->
+    <!--<script src="https://cdn.jsdelivr.net/js/particles.js/2.0.0/particles.min.js" defer></script>-->
+    <!--<!--<!--<script src="../js/particles.js" defer></script>-->-->-->
+    <!--<script src="../js/main.js" defer></script>-->
+    
+    <script>
+        // 页面加载完成后隐藏加载指示器
+        window.addEventListener('load', function() {
+            document.getElementById('loading-screen').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

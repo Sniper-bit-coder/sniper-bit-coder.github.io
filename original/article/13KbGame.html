@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>精选13KB游戏 | 熵增骇客</title>
+    <link rel="shortcut icon" href="../../CSSPNG\ico.png" />
+    <link rel="stylesheet" href="../../CSSPNG\index.css">
+    <!-- 使用 preconnect 和 preload 优化字体加载 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- 添加加载指示器 -->
+    <div id="loading-screen" style="position:fixed; top:0; left:0; width:100%; height:100%; background-color:#000; z-index:9999; display:flex; justify-content:center; align-items:center;">
+        <div class="cyber-loader"></div>
+    </div>
+    
+    <div class="noise-overlay"></div>
+    
+    <nav class="cyber-nav">
+        <div class="nav-container">
+            <a href="../../index.html">
+                <img src="../../CSSPNG\logo.png" alt="//熵增骇客" class="logo">
+            </a>
+            <div class="nav-links">
+                <a href="../../html/about.html" class="cyber-button">关于</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="article-container" style="max-width: 1000px; margin: 2rem auto; padding: 0 1rem;">
+        <h1 class="article-title" style="color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); margin-bottom: 2rem; text-align: center;">精选13KB游戏合集</h1>
+        
+        <div class="article-content">
+            <div class="disclaimer-box" style="background: rgba(255, 0, 255, 0.1); border: 1px solid var(--neon-pink); padding: 1rem; margin-bottom: 2rem; border-radius: 4px;">
+                <p><strong>声明：</strong>本页面展示的所有游戏均来自于 <a href="https://js13kgames.com/" target="_blank">js13kgames.com</a> 比赛。js13kGames 是一个面向HTML5游戏开发者的JavaScript编程比赛，参赛作品大小限制在13KB以内。所有游戏的版权归原作者所有。</p>
+            </div>
+            
+            <p>以下是精选的13KB游戏合集，这些游戏展示了在严格的大小限制下，开发者们的创造力和技术能力。每个游戏都不超过13KB，却提供了令人惊叹的游戏体验。</p>
+            
+            <div class="games-grid" id="games-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                <!-- 游戏卡片将通过JavaScript动态生成 -->
+                <div class="loading-games" style="grid-column: 1/-1; text-align: center; color: var(--neon-blue);">
+                    正在加载游戏列表...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="terminal-footer">
+            <div class="terminal-line">
+                <span class="terminal-prompt">----></span>
+                <span class="terminal-command">13KbGame.html</span>
+            </div>
+            <div class="terminal-output">
+                <span class="terminal-text">© 2025 熵增骇客，所有权利保留</span>
+            </div>
+        </div>
+        
+        <div class="footer-links">
+            <a href="../../html/about.html">关于</a>
+            <a href="../../html/privacy.html">隐私政策</a>
+            <a href="../../html/contact.html">联系我们</a>
+        </div>
+    </footer>
+
+    <!-- 粒子画布容器 -->
+    <div id="cyber-particle" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9;"></div>
+    
+    <!-- 动态文字容器 -->
+    <div id="hologram-text"></div>
+
+    <!-- 将脚本移到底部并添加 defer 属性 -->
+    <!--<script src="https://cdn.jsdelivr.net/js/particles.js/2.0.0/particles.min.js" defer></script>-->
+    <!--<!--<!--<script src="../js/particles.js" defer></script>-->-->-->
+    <!--<script src="../js/main.js" defer></script>-->
+    
+    <script>
+        // 页面加载完成后隐藏加载指示器
+        window.addEventListener('load', function() {
+            document.getElementById('loading-screen').style.display = 'none';
+        });
+        
+        // 游戏数据加载和展示
+        document.addEventListener('DOMContentLoaded', function() {
+            const gamesContainer = document.getElementById('games-container');
+            
+            // 模拟从服务器获取游戏列表
+            // 在实际应用中，这里应该是一个AJAX请求或服务器端渲染
+            // 由于浏览器安全限制，JavaScript无法直接读取服务器文件系统
+            // 因此这里使用模拟数据，实际应用中需要后端支持
+            
+            // 游戏数据示例
+            const games = [
+                {
+                    title: "13th-floor",
+                    description: "《13th Floor》是一款潜行恐怖游戏，要求您保持警惕并躲在阴影中。你收到一份奇怪的邀请函，邀请你参加第 13 届 JS13k 游戏竞赛庆祝派对。派对在 13 楼举行，那里有 13 个房间，会发生什么事呢？",
+                    folder: "13th-floor",
+                },
+                {
+                    title: "bubble-burst",
+                    description: "在这场闪闪发光的冒险中，通过克服障碍并避开敌人（XIII）泡泡来达到目标",
+                    folder: "bubble-burst",
+                },
+                {
+                    title: "coup-ahoo",
+                    description: "您终于受够了您的舰队和他们的无能。逐一击倒所有 13 艘船，夺得头名。沿途，您会发现代表您船只活力和火力的珍贵货物骰子。您还可能会遇到友好的商人、木匠和潜在的船员，他们渴望加入并帮助您完成旅程。游戏完全通过鼠标（或触摸）进行。您可以按 M 键静音游戏。船上的货物由骰子组成，它们的总点数代表了船只的总生命值。这些骰子还会影响你在战斗中掷出的伤害骰子数量。小心不要让货物的总价值达到可怕的数字，因为即使在战斗中掷出这个数字也会产生不利的后果。",
+                    folder: "coup-ahoo",
+                },
+                {
+                    title: "dive-and-pick",
+                    description: "潜入海底躲避敌人（红色）。选择生命（L 绿色）以求生存。控制：点击",
+                    folder: "dive-and-pick",
+                },
+                {
+                    title: "dr1v3n-wild",
+                    description: "横跨 10 个阶段的史诗级比赛！您能到达魔法花园吗？您的最佳距离和最快时间将被保存。建议在 Windows 10 的 Chrome 浏览器中运行。",
+                    folder: "dr1v3n-wild",
+                },
+                {
+                    title: "hang-by-a-thread",
+                    description: "你是一个迷失的灵魂，正在寻找你应得的安息之地。你的线就是你的生命线。明智地使用它。",
+                    folder: "hang-by-a-thread",
+                },
+                {
+                    title: "i-want-to-google-the-game",
+                    description: "在无法找到游戏的世界里，你将浏览器指向古老的搜索引擎。克服未知互联网的障碍，例如付费墙、暗黑模式和网络标准。这条路你得独自走下去。您想用谷歌搜索该游戏。",
+                    folder: "i-want-to-google-the-game",
+                },
+                {
+                    title: "nilo",
+                    description: "在这个游戏中，玩家找到网页。玩家处于虚拟的 Internet Explorer 中，他们可以刷新它以使某些平台短暂消失，以便通过它们。完成两个章节中的所有级别即可完成游戏！",
+                    folder: "nilo",
+                },
+                {
+                    title: "ninja-vs-evilcorp",
+                    description: "人们认为邪恶而普通的 EVILCORP 制定了邪恶计划。作为一名忍者，你的目标是尽快入侵其计算机，找到这些邪恶计划。尽可能快地闯过一系列关卡。捷径总是可用的，并且强烈建议快速通关。游戏共有四种难度模式：​​普通、简单、非常简单和噩梦。游戏过程中可以随时设置难度。",
+                    folder: "ninja-vs-evilcorp",
+                },
+                {
+                    title: "norman-the-necromancer",
+                    description: "鼠标瞄准，单击施放法术，空格键复活。箭头键并输入以选择仪式。",
+                    folder: "norman-the-necromancer",
+                },
+                {
+                    title: "request-response",
+                    description: "网站服务器模拟器。您是服务器背后的人，必须尽快响应所有请求。按时发送正确的文件，他们就不会解雇您。请求不好？别担心，您身边有始终有用的 404.html 文件。玩法：将文件（用鼠标）拖到右栏上，然后将其放在右栏的请求中。",
+                    folder: "request-response",
+                },
+                {
+                    title: "shooooooot",
+                    description: "Shooooooot!! 是一款双摇杆射击游戏。使用有限的弹药向无数敌人射击。强烈推荐游戏手柄。游戏手柄：左摇杆移动右摇杆射击键盘/鼠标：WASD 或箭头键移动滑鼠開射",
+                    folder: "shooooooot",
+                },
+                {
+                    title: "stolen-sword",
+                    description: "镇压邪恶力量的宝剑被盗，释放出大量恶魔。找到失窃之剑并击败恶魔！拖动以瞄准，然后释放以跳跃并砍杀敌人",
+                    folder: "stolen-sword",
+                },
+                {
+                    title: "the-way-of-the-dodo",
+                    description: "欢迎来到 Dodo Dojo您能清除所有 13 个玩鸡的房间吗？最后帮助释放渡渡鸟吗？",
+                    folder: "the-way-of-the-dodo",
+                },
+                {
+                    title: "try-to-be-not-found",
+                    description: "在遥远的 1989 年的未来，一场隐形的解谜冒险。使用键盘箭头移动并尝试不被发现。",
+                    folder: "try-to-be-not-found",
+                },
+                {
+                    title: "welcome-to-space",
+                    description: "我们的太空站已被邪恶的外星人占领！地球派你来打败这些邪恶的恶棍。欢迎来到太空。这些邪恶的外星人全副武装，但你也是！使用你庞大的武器库征服 6 种不同的外星人，并向终极外星人头目进发。祝你好运，英雄！控制 - 键盘和控制器支持：使用左键和右键、A 和 D 或控制器方向键或操纵杆移动。使用上键、W 键、SHIFT 键、CTRL 键或控制器按钮跳跃。使用空格键、控制器按钮或扳机射击。",
+                    folder: "welcome-to-space",
+                },
+                
+            ];
+            
+            // 清除加载提示
+            gamesContainer.innerHTML = '';
+            
+            // 生成游戏卡片
+            games.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'article-card';
+                gameCard.innerHTML = `
+                    <div class="article-category">[13KB游戏]</div>
+                    <a href="../../reprinted/GAME/13KbGame/${game.folder}/index.html" target="_blank">${game.title}</a>
+                    <p>${game.description}</p>
+                    <div class="article-meta">js13kgames.com | <span class="cyber-tag">游戏</span></div>
+                    <div class="card-overlay"></div>
+                `;
+                gamesContainer.appendChild(gameCard);
+            });
+            
+            // 添加提示信息
+            const infoNote = document.createElement('div');
+            infoNote.style.gridColumn = '1/-1';
+            infoNote.style.marginTop = '2rem';
+            infoNote.style.padding = '1rem';
+            infoNote.style.background = 'rgba(0, 255, 255, 0.1)';
+            infoNote.style.border = '1px solid var(--neon-blue)';
+            infoNote.innerHTML = `
+                <p>注意：以上游戏列表是根据服务器上的文件自动生成的。如果您想添加更多游戏，只需将游戏文件放入 reprinted/GAME/13KbGame/ 目录下的相应文件夹中，并确保每个游戏文件夹包含一个 index.html 文件。</p>
+                <p>所有游戏均来自 <a href="https://js13kgames.com/" target="_blank">js13kgames.com</a>，版权归原作者所有。</p>
+            `;
+            gamesContainer.appendChild(infoNote);
+        });
+    </script>
+</body>
+</html>

@@ -1,17 +1,10 @@
-## Template › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/advanced-usage.md#setting-author-url
+## 作者配置
 # -------------------------------------
 # {author_id}:
 #   name: {full name}
-#   twitter: {twitter_of_author}
 #   url: {homepage_of_author}
 # -------------------------------------
 
-cotes:
-  name: Cotes Chung
-  twitter: cotes2020
-  url: https://github.com/cotes2020/
-
-sille_bille:
-  name: Dinesh Prasanth Moluguwan Krishnamoorthy
-  twitter: dinesh_MKD
-  url: https://github.com/SilleBille/
+sniper:
+  name: 钱昱诚
+  url: https://github.com/sniper-bit-coder/

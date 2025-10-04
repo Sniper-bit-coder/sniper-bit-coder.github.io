@@ -80,6 +80,7 @@ export default [
   build('page'),
   build('post'),
   build('misc'),
+  build('particles'),
   build('theme', { outputName: 'Theme' }),
   build('app', { src: SRC_PWA, jekyll: true }),
   build('sw', { src: SRC_PWA, jekyll: true })

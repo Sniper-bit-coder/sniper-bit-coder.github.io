@@ -126,6 +126,17 @@ script_includes:
     {{ content }}
   </div>
 
+  <!-- THE END separator -->
+  <div class="the-end-separator mt-5 mb-4">
+    <table style="width:100%; text-align:center; border:none;">
+      <tr>
+        <td style="width:40%; padding-right:10px;"><hr></td>
+        <td style="width:auto; white-space:nowrap;"> THE END </td>
+        <td style="width:40%; padding-left:10px;"><hr></td>
+      </tr>
+    </table>
+  </div>
+
   <div class="post-tail-wrapper text-muted">
     <!-- categories -->
     {% if page.categories.size > 0 %}
@@ -143,11 +154,12 @@ script_includes:
       <div class="post-tags">
         <i class="fa fa-tags fa-fw me-1"></i>
         {% for tag in page.tags %}
+          {%- assign tag_name = site.data.tag_map[tag] | default: tag -%}
           <a
             href="{{ site.baseurl }}/tags/{{ tag | slugify | url_encode }}/"
             class="post-tag no-text-decoration"
           >
-            {{- tag -}}
+            {{- tag_name -}}
           </a>
         {% endfor %}
       </div>
@@ -170,8 +182,6 @@ script_includes:
           {{ site.data.locales[lang].copyright.license.template | replace: ':LICENSE_NAME', _replacement }}
         {% endif %}
       </div>
-
-      {% include post-sharing.html lang=lang %}
     </div>
     <!-- .post-tail-bottom -->
   </div>

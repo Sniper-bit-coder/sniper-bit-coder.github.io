@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>粒子效果测试</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #1a1a2e;
+            color: white;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .test-content {
+            max-width: 600px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+        p {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        .instruction {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-content">
+        <h1>🎉 粒子效果测试</h1>
+        <p>点击页面任意位置来测试粒子爆炸效果！</p>
+        
+        <div class="instruction">
+            <strong>使用说明：</strong><br>
+            - 点击页面任意位置触发粒子爆炸<br>
+            - 粒子会从点击位置向四周散开<br>
+            - 支持多点同时点击<br>
+            - 效果在所有页面上都会生效
+        </div>
+        
+        <p>测试完成后，您可以删除此测试文件。</p>
+    </div>
+
+    <!-- 引入粒子效果 -->
+    <script src="/assets/js/dist/particles.min.js"></script>
+</body>
+</html>
